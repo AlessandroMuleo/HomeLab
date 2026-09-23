@@ -1,44 +1,15 @@
 # HomeLab
 
-Architecture and configuration notes for my self-hosted home server. I built it in 2021 to learn Linux administration, networking and basic hardening on a real network with real users (about 20 devices).
+Notes on the home server I set up in 2021: a Raspberry Pi 4 (8 GB) behind a Fritz!Box, about 20 devices on the network.
 
-## Architecture
+What ran on it:
+- Pi-hole as DNS for the whole LAN (set on the Fritz!Box, so no config needed on each device)
+- WireGuard for remote access
+- Home Assistant (Hass.io)
+- Nextcloud, with the data on an external HDD
 
-```mermaid
-flowchart LR
-    NET((Internet)) --> FB[Fritz!Box router]
-    FB -- "port forwarding" --> WG
-    FB -- "port forwarding" --> HA
-    FB -- "port forwarding" --> NC
-    subgraph PI[Raspberry Pi 4 · 8 GB]
-        WG[WireGuard VPN]
-        PH[Pi-hole DNS]
-        HA[Home Assistant]
-        NC[Nextcloud]
-    end
-    FB -- "DNS for the LAN" --> PH
-    WG --> HA
-    WG --> NC
-    NC --> HDD[(External HDD)]
-    UPS[UPS] -.-> PI
-```
+Home Assistant and Nextcloud were also exposed with port forwarding on the Fritz!Box, not only through the VPN. Only the WireGuard port really needed to be open.
 
-## Services
+A blackout killed the external HDD at some point. After that I added a UPS and started taking snapshots.
 
-| Service | Role | Notes |
-|---|---|---|
-| **Pi-hole** | Network-wide DNS filtering | Set as the LAN DNS server on the Fritz!Box, so every device is filtered without any per-device setup |
-| **WireGuard** | Remote access | VPN tunnel into the home network from outside |
-| **Home Assistant** | Home automation | Runs as Hass.io |
-| **Nextcloud** | Personal file sync | Data lives on an external HDD |
-
-## Lessons learned
-
-- **Power is part of the threat model.** A blackout destroyed the external HDD. After that I added a UPS and moved to regular snapshots, because a single disk with no backup is not storage.
-- **Known trade-off.** Home Assistant and Nextcloud were reachable through direct port forwarding as well as through WireGuard. Putting them behind the VPN only would shrink the attack surface to a single UDP port.
-- **DNS gives visibility.** Pi-hole's query log shows which domains every device on the network contacts, which makes it a cheap first monitoring tool.
-
-## Roadmap
-
-- [ ] Publish sanitized configs (Pi-hole, WireGuard, Home Assistant) with keys, IPs and hostnames removed
-- [ ] Document the backup/snapshot procedure
+TODO: upload the configs once I've stripped keys and IPs.
