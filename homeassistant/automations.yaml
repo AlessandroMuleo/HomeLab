@@ -1,0 +1,42 @@
+- id: ups_on_battery
+  alias: UPS on battery
+  triggers:
+    - trigger: state
+      entity_id: sensor.ups_status_data
+  conditions:
+    - condition: template
+      value_template: "{{ 'OB' in trigger.to_state.state and 'OB' not in trigger.from_state.state }}"
+  actions:
+    - action: notify.mobile_app_telefono
+      data:
+        title: Corrente saltata
+        message: "UPS on battery, charge {{ states('sensor.ups_battery_charge') }}%"
+
+- id: ups_power_back
+  alias: UPS power back
+  triggers:
+    - trigger: state
+      entity_id: sensor.ups_status_data
+  conditions:
+    - condition: template
+      value_template: "{{ 'OL' in trigger.to_state.state and 'OB' in trigger.from_state.state }}"
+  actions:
+    - action: notify.mobile_app_telefono
+      data:
+        title: Corrente tornata
+        message: "UPS back on line power"
+
+# scripts/check-disk.sh and backup.sh post here when something is wrong
+- id: pi_alerts
+  alias: Pi alerts
+  triggers:
+    - trigger: webhook
+      webhook_id: changeme
+      allowed_methods:
+        - POST
+      local_only: true
+  actions:
+    - action: notify.mobile_app_telefono
+      data:
+        title: Pi
+        message: "{{ trigger.json.message }}"

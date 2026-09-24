@@ -1,0 +1,26 @@
+default_config:
+
+homeassistant:
+  name: Casa
+  unit_system: metric
+  time_zone: Europe/Rome
+  country: IT
+  currency: EUR
+  latitude: !secret latitude
+  longitude: !secret longitude
+
+# config dir is on the sd card, keep writes down
+recorder:
+  purge_keep_days: 14
+  commit_interval: 30
+  exclude:
+    domains:
+      - automation
+      - update
+
+logger:
+  default: warning
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
