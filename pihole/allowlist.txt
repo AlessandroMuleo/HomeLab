@@ -1,0 +1,10 @@
+# Domains that broke something when blocked.
+# docker exec pihole pihole allow <domain>
+
+# smart TV app store
+api.smartthings.com
+# password reset / tracking links in emails
+click.redditmail.com
+links.e.paypal.com
+# android connectivity check, phones complained about "no internet" on wifi
+connectivitycheck.gstatic.com

@@ -1,0 +1,13 @@
+.env
+
+wireguard/*.conf
+nut/upsd.users
+nut/upsmon.conf
+
+# home assistant writes a lot of state into its config dir
+homeassistant/*
+!homeassistant/configuration.yaml
+!homeassistant/automations.yaml
+!homeassistant/scripts.yaml
+!homeassistant/scenes.yaml
+!homeassistant/secrets.yaml.example
