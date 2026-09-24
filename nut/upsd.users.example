@@ -1,0 +1,7 @@
+[upsmon]
+    password = changeme
+    upsmon primary
+
+# read only, for the NUT integration in home assistant
+[homeassistant]
+    password = changeme

@@ -1,0 +1,13 @@
+MONITOR ups@localhost 1 upsmon changeme primary
+
+MINSUPPLIES 1
+SHUTDOWNCMD "/sbin/shutdown -h +0"
+POLLFREQ 5
+POLLFREQALERT 5
+HOSTSYNC 15
+DEADTIME 15
+FINALDELAY 5
+POWERDOWNFLAG /etc/killpower
+
+# pi + hdd draw ~10W so the battery lasts a long time.
+# no upssched timer, just shut down cleanly on low battery.
