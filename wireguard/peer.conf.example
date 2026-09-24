@@ -1,0 +1,15 @@
+# client side. on the phone: qrencode -t ansiutf8 < phone.conf
+
+[Interface]
+Address = 10.8.0.2/32
+PrivateKey = <peer private key>
+# pi-hole, so ads are blocked on mobile data too
+DNS = 192.168.178.2
+
+[Peer]
+PublicKey = <server public key>
+Endpoint = <myfritz address>.myfritz.net:51820
+# split tunnel: only LAN + vpn subnet go through the pi.
+# use 0.0.0.0/0 for everything (slower, upload here is ~20 Mbit)
+AllowedIPs = 192.168.178.0/24, 10.8.0.0/24
+PersistentKeepalive = 25

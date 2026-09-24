@@ -1,0 +1,22 @@
+# /etc/wireguard/wg0.conf on the pi
+# keys: wg genkey | tee privatekey | wg pubkey > publickey
+
+[Interface]
+Address = 10.8.0.1/24
+ListenPort = 51820
+PrivateKey = <server private key>
+
+# docker sets the FORWARD policy to DROP, so traffic from wg0 to the LAN
+# has to be allowed explicitly or only the pi itself is reachable
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+
+# phone
+[Peer]
+PublicKey = <phone public key>
+AllowedIPs = 10.8.0.2/32
+
+# laptop
+[Peer]
+PublicKey = <laptop public key>
+AllowedIPs = 10.8.0.3/32
