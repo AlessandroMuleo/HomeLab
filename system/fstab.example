@@ -1,0 +1,6 @@
+# appended to /etc/fstab. get the UUIDs with: lsblk -f
+#
+# nofail: boot even if the disk is missing/dead
+# x-systemd.device-timeout: don't wait 90s for it
+UUID=<hdd uuid>     /mnt/hdd     ext4  defaults,noatime,nofail,x-systemd.device-timeout=10  0  2
+UUID=<backup uuid>  /mnt/backup  ext4  defaults,noatime,nofail,x-systemd.device-timeout=10  0  2
