@@ -1,0 +1,7 @@
+# root crontab: sudo crontab scripts/crontab
+# (repo is cloned in /opt/homelab)
+#
+# m  h  dom mon dow  command
+*/5  *  *   *   *    docker exec -u www-data nextcloud php -f /var/www/html/cron.php
+30   3  *   *   *    /opt/homelab/scripts/backup.sh >> /var/log/homelab-backup.log 2>&1
+0    9  *   *   *    /opt/homelab/scripts/check-disk.sh 2>> /var/log/homelab-disk.log
