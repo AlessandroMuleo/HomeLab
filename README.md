@@ -1,21 +1,22 @@
 # HomeLab
 
-Config and notes for the home server I set up in 2021 and still run: a Raspberry Pi 4 (8 GB)
-behind a Fritz!Box, about 20 devices on the network.
+Config and notes for the home server I ran from 2021 to 2026: a Raspberry Pi 4 (8 GB)
+behind a Fritz!Box, about 20 devices on the network. It's switched off now, the
+config is kept here as it was.
 
-What runs on it:
+What ran on it:
 - Pi-hole as DNS for the whole LAN (set on the Fritz!Box, so no config needed on each device)
 - WireGuard for remote access, the only port open from outside
 - Home Assistant
 - Nextcloud, with the data on an external HDD
 - NUT for the UPS
 
-Pi-hole, Home Assistant and Nextcloud run in docker (`docker-compose.yml`).
-WireGuard and NUT run directly on the host.
+Pi-hole, Home Assistant and Nextcloud ran in docker (`docker-compose.yml`),
+WireGuard and NUT directly on the host.
 
 Home Assistant and Nextcloud used to be exposed with port forwarding on the Fritz!Box,
-not only through the VPN. Only the WireGuard port really needed to be open, so now
-that's the only forward left.
+not only through the VPN. Only the WireGuard port really needed to be open, so in
+the end that was the only forward left.
 
 A blackout killed the external HDD at some point. After that I added a UPS and started
 taking snapshots to a second disk, see [docs/incidents.md](docs/incidents.md).
@@ -44,9 +45,9 @@ The real ones are in `.gitignore`.
 - [restore.md](docs/restore.md): getting things back from the snapshots
 - [incidents.md](docs/incidents.md): what broke and what changed after
 
-## TODO
+## Never got to
 
 - offsite backup (restic?)
-- HTTPS for Nextcloud inside the LAN, it's plain http behind the VPN right now
+- HTTPS for Nextcloud inside the LAN, it stayed plain http behind the VPN
 - look into WireGuard on the Fritz!Box itself
 - move the HA config off the SD card
