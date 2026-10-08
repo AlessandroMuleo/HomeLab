@@ -61,10 +61,11 @@ to check is the pi-hole query log: if a device never shows up, that's the reason
 
 ## Port forwarding
 
-At the beginning I forwarded Home Assistant and Nextcloud directly
-from the Fritz!Box, so they were reachable from outside without the VPN.
-That was a bad idea: two web apps open to the whole internet, for no real reason.
-Now the only forward is 51820/udp for WireGuard, everything else goes through the VPN.
+At the beginning I had three forwards on the Fritz!Box: WireGuard (51820/udp),
+Home Assistant and Nextcloud. Home Assistant and Nextcloud were reachable from
+outside without the VPN. That was a bad idea: two web apps open to the whole
+internet, for no real reason. Now the only forward is 51820/udp for WireGuard,
+everything else goes through the VPN.
 
 The endpoint for clients is the MyFRITZ! address, so the changing public IP
 is not a problem.
